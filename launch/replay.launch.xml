@@ -3,15 +3,16 @@
   <arg name="vehicle_model" description="vehicle model name"/>
   <arg name="sensor_model" description="sensor model name"/>
   <arg name="vehicle_id" default="$(env VEHICLE_ID default)" description="vehicle specific ID"/>
-  <arg name="api" default="true" description="launch api" />
+  <arg name="api" default="false" description="launch api" />
   <arg name="vehicle" default="true" description="launch vehicle" />
-  <arg name="system" default="true" description="launch system" />
+  <arg name="system" default="false" description="launch system" />
   <arg name="map" default="true" description="launch map" />
-  <arg name="sensing" default="true" description="launch sensing" />
-  <arg name="localization" default="true" description="launch localization" />
-  <arg name="perception" default="true" description="launch perception" />
-  <arg name="planning" default="true" description="launch planning" />
-  <arg name="control" default="true" description="launch control" />
+  <arg name="sensing" default="false" description="launch sensing" />
+  <arg name="localization" default="false" description="launch localization" />
+  <arg name="perception" default="false" description="launch perception" />
+  <arg name="planning" default="false" description="launch planning" />
+  <arg name="control" default="false" description="launch control" />
+  <arg name="scenario_simulation" default="true" description="scenario simulation" />
   <arg name="rviz_config" default="$(find-pkg-share debug_launch)/config/rviz/replay.rviz" description="rviz config"/>
 
   <include file="$(find-pkg-share autoware_launch)/launch/logging_simulator.launch.xml">

@@ -1,9 +1,0 @@
-<launch>
-  <arg name="rviz_config" default="$(find-pkg-share debug_launch)/config/rviz/cfg.rviz" description="rviz config"/>
-  <node
-      pkg="rviz2"
-      exec="rviz2"
-      name="rviz2"
-      output="screen"
-      args="-d $(var rviz_config)"/>  
-</launch>

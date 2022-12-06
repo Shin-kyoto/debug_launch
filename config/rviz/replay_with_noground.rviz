@@ -5,15 +5,18 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Sensing1/LiDAR1/ConcatenatePointCloud1
         - /Sensing1/LiDAR1/ConcatenatePointCloud1/Autocompute Value Bounds1
-        - /Planning1
+        - /Perception1/Segmentation1
         - /Planning1/ScenarioPlanning1
         - /Planning1/ScenarioPlanning1/LaneDriving1
         - /Planning1/ScenarioPlanning1/LaneDriving1/BehaviorPlanning1
-        - /Planning1/ScenarioPlanning1/LaneDriving1/BehaviorPlanning1/VirtualWall1/VirtualWall (TrafficLight)1/Namespaces1
+        - /Planning1/ScenarioPlanning1/LaneDriving1/BehaviorPlanning1/DebugMarker1
         - /Planning1/ScenarioPlanning1/LaneDriving1/BehaviorPlanning1/DebugMarker1/Intersection1
-      Splitter Ratio: 0.6866359710693359
-    Tree Height: 396
+        - /Planning1/ScenarioPlanning1/LaneDriving1/BehaviorPlanning1/DebugMarker1/Intersection1/Namespaces1
+        - /BBox1
+      Splitter Ratio: 0.5907928347587585
+    Tree Height: 1405
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -31,10 +34,14 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: NoGroundPointCloud
   - Class: multi_data_monitor::MultiDataMonitor
     Name: MultiDataMonitor
     Path: file:///home/mamorusobue/workspace/pilot-auto.xx1/install/debug_launch/share/debug_launch/config/multi_data_monitor/debug_config.yaml
+  - Class: rviz_plugins::BagTimeManagerPanel
+    Name: BagTimeManagerPanel
+  - Class: AutowareDateTimePanel
+    Name: AutowareDateTimePanel
 Visualization Manager:
   Class: ""
   Displays:
@@ -421,7 +428,7 @@ Visualization Manager:
               Color: 255; 255; 255
               Color Transformer: AxisColor
               Decay Time: 0
-              Enabled: true
+              Enabled: false
               Invert Rainbow: false
               Max Color: 255; 255; 255
               Max Intensity: 4096
@@ -442,7 +449,7 @@ Visualization Manager:
                 Value: /sensing/lidar/concatenated/pointcloud
               Use Fixed Frame: false
               Use rainbow: true
-              Value: true
+              Value: false
             - Alpha: 0.9990000128746033
               Class: rviz_default_plugins/Polygon
               Color: 25; 255; 0
@@ -698,42 +705,8 @@ Visualization Manager:
     - Class: rviz_common/Group
       Displays:
         - Class: rviz_common/Group
-          Displays:
-            - Alpha: 0.9990000128746033
-              Autocompute Intensity Bounds: true
-              Autocompute Value Bounds:
-                Max Value: 15
-                Min Value: -2
-                Value: false
-              Axis: Z
-              Channel Name: z
-              Class: rviz_default_plugins/PointCloud2
-              Color: 200; 200; 200
-              Color Transformer: FlatColor
-              Decay Time: 0
-              Enabled: true
-              Invert Rainbow: false
-              Max Color: 255; 255; 255
-              Max Intensity: 15
-              Min Color: 0; 0; 0
-              Min Intensity: -5
-              Name: NoGroundPointCloud
-              Position Transformer: XYZ
-              Selectable: false
-              Size (Pixels): 3
-              Size (m): 0.019999999552965164
-              Style: Points
-              Topic:
-                Depth: 5
-                Durability Policy: Volatile
-                Filter size: 10
-                History Policy: Keep Last
-                Reliability Policy: Best Effort
-                Value: /perception/obstacle_segmentation/pointcloud
-              Use Fixed Frame: true
-              Use rainbow: true
-              Value: true
-          Enabled: false
+          Displays: ~
+          Enabled: true
           Name: Segmentation
         - Class: rviz_common/Group
           Displays:
@@ -748,7 +721,6 @@ Visualization Manager:
                 Color: 119; 11; 32
               Class: autoware_auto_perception_rviz_plugin/DetectedObjects
               Display 3d polygon: true
-              Display Acceleration: true
               Display Label: true
               Display PoseWithCovariance: true
               Display Predicted Path Confidence: true
@@ -798,7 +770,6 @@ Visualization Manager:
                 Color: 119; 11; 32
               Class: autoware_auto_perception_rviz_plugin/TrackedObjects
               Display 3d polygon: true
-              Display Acceleration: true
               Display Label: true
               Display PoseWithCovariance: true
               Display Predicted Path Confidence: true
@@ -837,53 +808,6 @@ Visualization Manager:
           Name: Tracking
         - Class: rviz_common/Group
           Displays:
-            - BUS:
-                Alpha: 0.9990000128746033
-                Color: 30; 144; 255
-              CAR:
-                Alpha: 0.9990000128746033
-                Color: 30; 144; 255
-              CYCLIST:
-                Alpha: 0.9990000128746033
-                Color: 119; 11; 32
-              Class: autoware_auto_perception_rviz_plugin/PredictedObjects
-              Display 3d polygon: true
-              Display Acceleration: false
-              Display Label: false
-              Display PoseWithCovariance: false
-              Display Predicted Path Confidence: false
-              Display Predicted Paths: true
-              Display Twist: false
-              Display UUID: false
-              Display Velocity: false
-              Enabled: true
-              Line Width: 0.25
-              MOTORCYCLE:
-                Alpha: 0.9990000128746033
-                Color: 119; 11; 32
-              Name: PredictedObjects
-              Namespaces:
-                path: true
-                shape: true
-              PEDESTRIAN:
-                Alpha: 0.9990000128746033
-                Color: 255; 192; 203
-              TRAILER:
-                Alpha: 0.9990000128746033
-                Color: 30; 144; 255
-              TRUCK:
-                Alpha: 0.9990000128746033
-                Color: 30; 144; 255
-              Topic:
-                Depth: 5
-                Durability Policy: Volatile
-                History Policy: Keep Last
-                Reliability Policy: Reliable
-                Value: /perception/object_recognition/objects
-              UNKNOWN:
-                Alpha: 0.9990000128746033
-                Color: 255; 255; 255
-              Value: true
             - Class: rviz_default_plugins/MarkerArray
               Enabled: false
               Name: Maneuver
@@ -911,8 +835,8 @@ Visualization Manager:
                 Depth: 5
                 Durability Policy: Volatile
                 History Policy: Keep Last
-                Reliability Policy: Reliable
-                Value: /perception/traffic_light_recognition/debug/rois
+                Reliability Policy: BestEffort
+                Value: /sensing/camera/image
               Value: true
             - Class: rviz_default_plugins/MarkerArray
               Enabled: true
@@ -928,7 +852,7 @@ Visualization Manager:
               Value: true
           Enabled: false
           Name: TrafficLight
-      Enabled: true
+      Enabled: false
       Name: Perception
     - Class: rviz_common/Group
       Displays:
@@ -1058,8 +982,8 @@ Visualization Manager:
                             {}
                           Topic:
                             Depth: 5
-                            Durability Policy: Transient Local
-                            History Policy: System Default
+                            Durability Policy: Volatile
+                            History Policy: Keep Last
                             Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/debug/blind_spot
                           Value: true
@@ -1070,8 +994,8 @@ Visualization Manager:
                             {}
                           Topic:
                             Depth: 5
-                            Durability Policy: Transient Local
-                            History Policy: System Default
+                            Durability Policy: Volatile
+                            History Policy: Keep Last
                             Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/crosswalk
                           Value: true
@@ -1084,7 +1008,7 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/walkway
                           Value: true
                         - Class: rviz_default_plugins/MarkerArray
@@ -1096,7 +1020,7 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/detection_area
                           Value: true
                         - Class: rviz_default_plugins/MarkerArray
@@ -1106,8 +1030,8 @@ Visualization Manager:
                             {}
                           Topic:
                             Depth: 5
-                            Durability Policy: Transient Local
-                            History Policy: System Default
+                            Durability Policy: Volatile
+                            History Policy: Keep Last
                             Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/intersection
                           Value: true
@@ -1120,7 +1044,7 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/merge_from_private
                           Value: true
                         - Class: rviz_default_plugins/MarkerArray
@@ -1132,7 +1056,7 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/no_stopping_area
                           Value: true
                         - Class: rviz_default_plugins/MarkerArray
@@ -1144,11 +1068,11 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/occlusion_spot
                           Value: true
                         - Class: rviz_default_plugins/MarkerArray
-                          Enabled: true
+                          Enabled: false
                           Name: VirtualWall (StopLine)
                           Namespaces:
                             {}
@@ -1156,23 +1080,23 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/stop_line
-                          Value: true
+                          Value: false
                         - Class: rviz_default_plugins/MarkerArray
-                          Enabled: true
+                          Enabled: false
                           Name: VirtualWall (TrafficLight)
                           Namespaces:
                             {}
                           Topic:
                             Depth: 5
-                            Durability Policy: Transient Local
-                            History Policy: System Default
+                            Durability Policy: Volatile
+                            History Policy: Keep Last
                             Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/traffic_light
-                          Value: true
+                          Value: false
                         - Class: rviz_default_plugins/MarkerArray
-                          Enabled: true
+                          Enabled: false
                           Name: VirtualWall (VirtualTrafficLight)
                           Namespaces:
                             {}
@@ -1180,11 +1104,11 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/virtual_traffic_light
-                          Value: true
+                          Value: false
                         - Class: rviz_default_plugins/MarkerArray
-                          Enabled: true
+                          Enabled: false
                           Name: VirtualWall (RunOut)
                           Namespaces:
                             {}
@@ -1192,9 +1116,9 @@ Visualization Manager:
                             Depth: 5
                             Durability Policy: Volatile
                             History Policy: Keep Last
-                            Reliability Policy: Reliable
+                            Reliability Policy: Best Effort
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/run_out
-                          Value: true
+                          Value: false
                       Enabled: true
                       Name: VirtualWall
                     - Class: rviz_common/Group
@@ -1239,18 +1163,7 @@ Visualization Manager:
                           Enabled: true
                           Name: Intersection
                           Namespaces:
-                            adjacent_area: true
-                            candidate_collision_ego_lane_polygon: true
-                            candidate_collision_object_polygons: true
-                            conflicting_targets: true
-                            detection_area: true
-                            ego_lane: true
-                            intersection_area: true
-                            judge_point_pose_line: true
-                            path_raw: true
-                            stop_point_pose_line: true
-                            stuck_targets: true
-                            stuck_vehicle_detect_area: true
+                            {}
                           Topic:
                             Depth: 5
                             Durability Policy: Volatile
@@ -1672,7 +1585,7 @@ Visualization Manager:
               Value: false
           Enabled: true
           Name: ScenarioPlanning
-      Enabled: true
+      Enabled: false
       Name: Planning
     - Class: rviz_common/Group
       Displays:
@@ -1734,7 +1647,7 @@ Visualization Manager:
       Color Scheme: map
       Draw Behind: true
       Enabled: true
-      Name: Map
+      Name: OccupancyGrid
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -1749,6 +1662,219 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /perception/occupancy_grid_map/map_updates
       Use Timestamp: false
+      Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /sensing/camera/image
+      Value: true
+    - Class: rviz_common/Group
+      Displays:
+        - BUS:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          CAR:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          CYCLIST:
+            Alpha: 0.9990000128746033
+            Color: 119; 11; 32
+          Class: autoware_auto_perception_rviz_plugin/DetectedObjects
+          Display 3d polygon: true
+          Display Label: true
+          Display PoseWithCovariance: true
+          Display Predicted Path Confidence: true
+          Display Predicted Paths: true
+          Display Twist: true
+          Display UUID: true
+          Display Velocity: true
+          Enabled: false
+          Line Width: 0.25
+          MOTORCYCLE:
+            Alpha: 0.9990000128746033
+            Color: 119; 11; 32
+          Name: RawCenterpoint
+          Namespaces:
+            {}
+          PEDESTRIAN:
+            Alpha: 0.9990000128746033
+            Color: 255; 192; 203
+          TRAILER:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          TRUCK:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /perception/object_recognition/detection/centerpoint/objects
+          UNKNOWN:
+            Alpha: 0.9990000128746033
+            Color: 255; 255; 255
+          Value: false
+        - BUS:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          CAR:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          CYCLIST:
+            Alpha: 0.9990000128746033
+            Color: 119; 11; 32
+          Class: autoware_auto_perception_rviz_plugin/DetectedObjects
+          Display 3d polygon: true
+          Display Label: true
+          Display PoseWithCovariance: true
+          Display Predicted Path Confidence: true
+          Display Predicted Paths: true
+          Display Twist: true
+          Display UUID: true
+          Display Velocity: true
+          Enabled: false
+          Line Width: 0.25
+          MOTORCYCLE:
+            Alpha: 0.9990000128746033
+            Color: 119; 11; 32
+          Name: ValidatedCenterpoint
+          Namespaces:
+            {}
+          PEDESTRIAN:
+            Alpha: 0.9990000128746033
+            Color: 255; 192; 203
+          TRAILER:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          TRUCK:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /perception/object_recognition/detection/centerpoint/validation/objects
+          UNKNOWN:
+            Alpha: 0.9990000128746033
+            Color: 255; 255; 255
+          Value: false
+        - BUS:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          CAR:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          CYCLIST:
+            Alpha: 0.9990000128746033
+            Color: 119; 11; 32
+          Class: autoware_auto_perception_rviz_plugin/PredictedObjects
+          Display 3d polygon: true
+          Display Label: false
+          Display PoseWithCovariance: false
+          Display Predicted Path Confidence: false
+          Display Predicted Paths: true
+          Display Twist: false
+          Display UUID: false
+          Display Velocity: false
+          Enabled: true
+          Line Width: 0.25
+          MOTORCYCLE:
+            Alpha: 0.9990000128746033
+            Color: 119; 11; 32
+          Name: PredictedObjects
+          Namespaces:
+            path: true
+            shape: true
+          PEDESTRIAN:
+            Alpha: 0.9990000128746033
+            Color: 255; 192; 203
+          TRAILER:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          TRUCK:
+            Alpha: 0.9990000128746033
+            Color: 30; 144; 255
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /perception/object_recognition/objects
+          UNKNOWN:
+            Alpha: 0.9990000128746033
+            Color: 255; 255; 255
+          Value: true
+      Enabled: true
+      Name: BBox
+    - Alpha: 0.9990000128746033
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 15
+        Min Value: -2
+        Value: false
+      Axis: Z
+      Channel Name: z
+      Class: rviz_default_plugins/PointCloud2
+      Color: 200; 200; 200
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 15
+      Min Color: 0; 0; 0
+      Min Intensity: -5
+      Name: NoGroundPointCloud
+      Position Transformer: XYZ
+      Selectable: false
+      Size (Pixels): 3
+      Size (m): 0.019999999552965164
+      Style: Points
+      Topic:
+        Depth: 1
+        Durability Policy: Volatile
+        Filter size: 5
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /perception/obstacle_segmentation/pointcloud
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz_default_plugins/Axes
+      Enabled: true
+      Length: 7
+      Name: Axes
+      Radius: 0.5
+      Reference Frame: base_link
+      Value: true
+    - Alpha: 0.5
+      Cell Size: 10
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.30000001192092896
+        Value: Billboards
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 30
+      Reference Frame: base_link
       Value: true
   Enabled: true
   Global Options:
@@ -1781,11 +1907,8 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /planning/mission_planning/goal
-    - Acceleration: 0
-      Class: rviz_plugins/PedestrianInitialPoseTool
+    - Class: rviz_plugins/PedestrianInitialPoseTool
       Interactive: false
-      Max velocity: 33.29999923706055
-      Min velocity: -33.29999923706055
       Pose Topic: /simulation/dummy_perception_publisher/object_info
       Target Frame: <Fixed Frame>
       Theta std deviation: 0.0872664600610733
@@ -1794,13 +1917,10 @@ Visualization Manager:
       Y std deviation: 0.029999999329447746
       Z position: 1
       Z std deviation: 0.029999999329447746
-    - Acceleration: 0
-      Class: rviz_plugins/CarInitialPoseTool
+    - Class: rviz_plugins/CarInitialPoseTool
       H vehicle height: 2
       Interactive: false
       L vehicle length: 4
-      Max velocity: 33.29999923706055
-      Min velocity: -33.29999923706055
       Pose Topic: /simulation/dummy_perception_publisher/object_info
       Target Frame: <Fixed Frame>
       Theta std deviation: 0.0872664600610733
@@ -1810,13 +1930,10 @@ Visualization Manager:
       Y std deviation: 0.029999999329447746
       Z position: 0
       Z std deviation: 0.029999999329447746
-    - Acceleration: 0
-      Class: rviz_plugins/BusInitialPoseTool
+    - Class: rviz_plugins/BusInitialPoseTool
       H vehicle height: 3.5
       Interactive: false
       L vehicle length: 10.5
-      Max velocity: 33.29999923706055
-      Min velocity: -33.29999923706055
       Pose Topic: /simulation/dummy_perception_publisher/object_info
       Target Frame: <Fixed Frame>
       Theta std deviation: 0.0872664600610733
@@ -1840,26 +1957,21 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz_default_plugins/ThirdPersonFollower
-      Distance: 86.2716064453125
+      Angle: -0.9849998950958252
+      Class: rviz_default_plugins/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
-      Focal Shape Fixed Size: false
-      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6453981399536133
+      Scale: 9.81702709197998
       Target Frame: base_link
-      Value: ThirdPersonFollower (rviz_default_plugins)
-      Yaw: 3.228583574295044
+      Value: TopDownOrtho (rviz_default_plugins)
+      X: 84.07441711425781
+      Y: -12.583706855773926
     Saved:
       - Class: rviz_default_plugins/ThirdPersonFollower
         Distance: 18
@@ -1917,16 +2029,22 @@ Visualization Manager:
         Value: ThirdPersonFollower (rviz_default_plugins)
         Yaw: -1.5707963705062866
 Window Geometry:
-  Displays:
+  AutowareDateTimePanel:
     collapsed: false
-  Height: 799
+  BagTimeManagerPanel:
+    collapsed: false
+  Displays:
+    collapsed: true
+  Height: 2053
   Hide Left Dock: false
   Hide Right Dock: true
+  Image:
+    collapsed: false
   InitialPoseButtonPanel:
     collapsed: false
   MultiDataMonitor:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd000000040000000000000189000002b5fc020000001afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006f00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc00000048000001fa0000011801000024fa000000010100000002fb00000030005200650063006f0067006e006900740069006f006e0052006500730075006c0074004f006e0049006d0061006700650100000000ffffffff0000012a00fffffffb000000100044006900730070006c0061007900730100000000000001c70000016d00fffffffc000001ef000001810000000000fffffffa000000000100000001fb0000000c00430061006d0065007200610000000000ffffffff0000000000000000fb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000002bb000000b50000000000000000fb0000000a0049006d00610067006501000001e9000000b40000000000000000fb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000009100fffffffb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000000000000000fb0000000c00430061006d0065007200610000000239000001370000000000000000fb0000000c00430061006d00650072006100000002bd000000b30000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d00610067006500000001f0000000870000000000000000fb0000000c00430061006d0065007200610000000213000000920000000000000000fb0000000c00430061006d006500720061000000024a000001260000000000000000fb0000000a0049006d0061006700650000000212000000930000000000000000fb0000000a0049006d006100670065000000027e000000f20000000000000000fb0000000a0049006d006100670065000000024b000001250000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d0061006700650000000205000000b80000000000000000fb00000020004d0075006c007400690044006100740061004d006f006e00690074006f00720100000249000000b40000008400fffffffb0000000c00430061006d006500720061000000024c000000b10000000000000000000000010000015f0000025ffc0200000003fb0000000a00560069006500770073000000003e000000b1000000c500fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007300000000f5000001a80000006f00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b2000000000000000000000002000007800000006bfc0100000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000000000007800000000000000000fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006000000005afc0100000002fb0000000800540069006d00650000000000000006000000034500fffffffb0000000800540069006d0065010000000000000450000000000000000000000470000002b500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000004230000079dfc020000001ffb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006e00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc00000047000005640000002f00fffffffa000000000100000002fb0000000a0049006d0061006700650100000000ffffffff0000006900fffffffb0000000a0049006d0061006700650000000000ffffffff0000000000000000fc000001ef000001810000000000fffffffa000000000100000001fb0000000c00430061006d0065007200610000000000ffffffff0000000000000000fb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000002bb000000b50000000000000000fb0000000a0049006d00610067006501000001e9000000b40000000000000000fb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000008d00fffffffb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000000000000000fb0000000c00430061006d0065007200610000000239000001370000000000000000fb0000000c00430061006d00650072006100000002bd000000b30000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d00610067006500000001f0000000870000000000000000fb0000000c00430061006d0065007200610000000213000000920000000000000000fb0000000c00430061006d006500720061000000024a000001260000000000000000fb0000000a0049006d0061006700650000000212000000930000000000000000fb0000000a0049006d006100670065000000027e000000f20000000000000000fb0000000a0049006d006100670065000000024b000001250000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d0061006700650000000205000000b80000000000000000fb00000030005200650063006f0067006e006900740069006f006e0052006500730075006c0074004f006e0049006d00610067006500000000480000025c0000002f00fffffffb0000000a0049006d00610067006501000000480000024f0000000000000000fb00000020004d0075006c007400690044006100740061004d006f006e00690074006f007201000005b2000001600000008100fffffffb0000000c00430061006d006500720061000000024c000000b10000000000000000fb0000000a0049006d0061006700650000000298000000b90000000000000000fb0000002600420061006700540069006d0065004d0061006e006100670065007200500061006e0065006c01000007190000006b0000004d00fffffffb0000002a004100750074006f0077006100720065004400610074006500540069006d006500500061006e0065006c010000078b000000590000004c00ffffff000000010000038f0000079dfc0200000003fb000000100044006900730070006c0061007900730000000047000005c4000000f100fffffffc00000612000001d20000000000fffffffaffffffff0100000002fb0000000a005600690065007700730000000000ffffffff0000010200fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007300000004a10000015f000000b400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b2000000000000000000000002000007800000006bfc0100000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000000000007800000000000000000fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006000000005afc0100000002fb0000000800540069006d00650000000000000006000000038100fffffffb0000000800540069006d0065010000000000000450000000000000000000000ad60000079d00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   RecognitionResultOnImage:
     collapsed: false
   Selection:
@@ -1937,6 +2055,6 @@ Window Geometry:
     collapsed: true
   Views:
     collapsed: true
-  Width: 1536
+  Width: 3840
   X: 0
-  Y: 40
+  Y: 0
