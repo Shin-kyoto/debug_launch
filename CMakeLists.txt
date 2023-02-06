@@ -15,6 +15,7 @@ install(
   scripts/reindex.py
   scripts/play_reeval_planning.sh
   scripts/play_reeval_obstacle_pointcloud_based_validator.sh
+  scripts/play_reeval_perception.sh
   DESTINATION lib/${PROJECT_NAME}
 )
 
