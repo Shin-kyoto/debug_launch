@@ -9,12 +9,11 @@
   <arg name="map" default="true" description="launch map"/>
   <arg name="sensing" default="true" description="launch sensing"/>
   <arg name="localization" default="false" description="launch localization"/>
-  <!-- launch obstacle_segmentation and occupancy_grid manually, so disable perception stack -->
   <arg name="perception" default="true" description="launch perception"/>
   <arg name="planning" default="false" description="launch planning" />
   <arg name="control" default="false" description="launch planning" />
   <arg name="scenario_simulation" default="true" description="scenario simulation" />
-  <arg name="rviz_config_original" default="$(find-pkg-share debug_launch)/config/rviz/reeval_perception_original.rviz" description="rviz config"/>
+  <arg name="rviz_config_original" default="$(find-pkg-share debug_launch)/config/rviz/reeval_perception.rviz" description="rviz config"/>
   <arg name="rviz_config" default="$(find-pkg-share debug_launch)/config/rviz/reeval_perception.rviz" description="rviz config"/>
   <arg name="input/pointcloud" default="/sensing/lidar/top/outlier_filtered/pointcloud" description="The topic will be used in the detection module"/>
   <arg name="mode" default="camera_lidar_fusion" description="options: `camera_lidar_radar_fusion`, `camera_lidar_fusion`, `lidar_radar_fusion`, `lidar` or `radar`"/>

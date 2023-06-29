@@ -4,7 +4,8 @@
 BAG_NAME=$1
 
 # until acceleration becomes available
-COMMAND_OPTION='--remap /localization/kinematic_state:=/tmp/localization/kinematic_state'
+#COMMAND_OPTION='--remap /localization/kinematic_state:=/tmp/localization/kinematic_state'
+COMMAND_OPTION='--remap '
 
 # mission_planning is necessary for behavior_planner
 PLANNING_TOPIC=$(ros2 bag info $BAG_NAME | awk '{print $2}' | grep planning | grep -v mission_planning)

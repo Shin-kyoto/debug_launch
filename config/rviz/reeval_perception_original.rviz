@@ -5,6 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Sensing1
+        - /Sensing1/LiDAR1
         - /Sensing1/LiDAR1/ConcatenatePointCloud1
         - /Sensing1/LiDAR1/ConcatenatePointCloud1/Autocompute Value Bounds1
         - /Perception1/Segmentation1
@@ -16,7 +18,7 @@ Panels:
         - /Planning1/ScenarioPlanning1/LaneDriving1/BehaviorPlanning1/DebugMarker1/Intersection1/Namespaces1
         - /BBox(original)1
       Splitter Ratio: 0.5907928347587585
-    Tree Height: 1813
+    Tree Height: 1518
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -34,7 +36,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: NoGroundPointCloud
   - Class: multi_data_monitor::MultiDataMonitor
     Name: MultiDataMonitor
     Path: file:///home/mamorusobue/workspace/pilot-auto.xx1/install/debug_launch/share/debug_launch/config/multi_data_monitor/debug_config.yaml
@@ -247,6 +249,7 @@ Visualization Manager:
             lanelet_id: true
             left_lane_bound: true
             no_stopping_area: true
+            parking_lots: true
             partitions: true
             pedestrian_marking: true
             right_lane_bound: true
@@ -288,16 +291,16 @@ Visualization Manager:
               Color: 255; 255; 255
               Color Transformer: AxisColor
               Decay Time: 0
-              Enabled: false
+              Enabled: true
               Invert Rainbow: false
               Max Color: 255; 255; 255
-              Max Intensity: 4096
+              Max Intensity: 255
               Min Color: 0; 0; 0
               Min Intensity: 0
               Name: ConcatenatePointCloud
               Position Transformer: XYZ
               Selectable: false
-              Size (Pixels): 1
+              Size (Pixels): 3
               Size (m): 0.019999999552965164
               Style: Points
               Topic:
@@ -309,7 +312,7 @@ Visualization Manager:
                 Value: /sensing/lidar/concatenated/pointcloud
               Use Fixed Frame: false
               Use rainbow: true
-              Value: false
+              Value: true
             - Alpha: 0.9990000128746033
               Class: rviz_default_plugins/Polygon
               Color: 25; 255; 0
@@ -323,7 +326,7 @@ Visualization Manager:
                 Reliability Policy: Reliable
                 Value: /sensing/lidar/crop_box_filter/crop_box_polygon
               Value: false
-          Enabled: false
+          Enabled: true
           Name: LiDAR
         - Class: rviz_common/Group
           Displays:
@@ -364,7 +367,7 @@ Visualization Manager:
               Value: true
           Enabled: false
           Name: GNSS
-      Enabled: false
+      Enabled: true
       Name: Sensing
     - Class: rviz_common/Group
       Displays:
@@ -566,7 +569,7 @@ Visualization Manager:
       Displays:
         - Class: rviz_common/Group
           Displays: ~
-          Enabled: true
+          Enabled: false
           Name: Segmentation
         - Class: rviz_common/Group
           Displays:
@@ -580,7 +583,7 @@ Visualization Manager:
                 Alpha: 0.9990000128746033
                 Color: 119; 11; 32
               Class: autoware_auto_perception_rviz_plugin/DetectedObjects
-              Display 3d polygon: true
+              Display Acceleration: true
               Display Label: true
               Display PoseWithCovariance: true
               Display Predicted Path Confidence: true
@@ -599,6 +602,7 @@ Visualization Manager:
               PEDESTRIAN:
                 Alpha: 0.9990000128746033
                 Color: 255; 192; 203
+              Polygon Type: 3d
               TRAILER:
                 Alpha: 0.9990000128746033
                 Color: 30; 144; 255
@@ -615,6 +619,7 @@ Visualization Manager:
                 Alpha: 0.9990000128746033
                 Color: 255; 255; 255
               Value: true
+              Visualization Type: Normal
           Enabled: false
           Name: Detection
         - Class: rviz_common/Group
@@ -629,7 +634,7 @@ Visualization Manager:
                 Alpha: 0.9990000128746033
                 Color: 119; 11; 32
               Class: autoware_auto_perception_rviz_plugin/TrackedObjects
-              Display 3d polygon: true
+              Display Acceleration: true
               Display Label: true
               Display PoseWithCovariance: true
               Display Predicted Path Confidence: true
@@ -648,6 +653,7 @@ Visualization Manager:
               PEDESTRIAN:
                 Alpha: 0.9990000128746033
                 Color: 255; 192; 203
+              Polygon Type: 3d
               TRAILER:
                 Alpha: 0.9990000128746033
                 Color: 30; 144; 255
@@ -664,6 +670,7 @@ Visualization Manager:
                 Alpha: 0.9990000128746033
                 Color: 255; 255; 255
               Value: true
+              Visualization Type: Normal
           Enabled: false
           Name: Tracking
         - Class: rviz_common/Group
@@ -766,12 +773,27 @@ Visualization Manager:
                 Reliability Policy: Reliable
                 Value: /planning/scenario_planning/trajectory
               Value: true
+              View Footprint:
+                Alpha: 1
+                Color: 230; 230; 50
+                Offset from BaseLink: 0
+                Rear Overhang: 1.0299999713897705
+                Value: false
+                Vehicle Length: 4.769999980926514
+                Vehicle Width: 1.8300000429153442
               View Path:
                 Alpha: 0.9990000128746033
                 Color: 0; 0; 0
                 Constant Color: false
+                Constant Width: false
                 Value: true
                 Width: 2
+              View Point:
+                Alpha: 1
+                Color: 0; 60; 255
+                Offset: 0
+                Radius: 0.10000000149011612
+                Value: false
               View Text Velocity:
                 Scale: 0.30000001192092896
                 Value: false
@@ -797,12 +819,35 @@ Visualization Manager:
                         Reliability Policy: Reliable
                         Value: /planning/scenario_planning/lane_driving/behavior_planning/path
                       Value: true
+                      View Drivable Area:
+                        Alpha: 0.9990000128746033
+                        Color: 0; 148; 205
+                        Value: true
+                        Width: 0.30000001192092896
+                      View Footprint:
+                        Alpha: 1
+                        Color: 230; 230; 50
+                        Offset from BaseLink: 0
+                        Rear Overhang: 1.0299999713897705
+                        Value: false
+                        Vehicle Length: 4.769999980926514
+                        Vehicle Width: 1.8300000429153442
                       View Path:
                         Alpha: 0.4000000059604645
                         Color: 0; 0; 0
                         Constant Color: false
+                        Constant Width: false
                         Value: true
                         Width: 2
+                      View Point:
+                        Alpha: 1
+                        Color: 0; 60; 255
+                        Offset: 0
+                        Radius: 0.10000000149011612
+                        Value: false
+                      View Text Velocity:
+                        Scale: 0.30000001192092896
+                        Value: false
                       View Velocity:
                         Alpha: 0.4000000059604645
                         Color: 0; 0; 0
@@ -821,12 +866,35 @@ Visualization Manager:
                         Reliability Policy: Reliable
                         Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/output/path_candidate
                       Value: false
+                      View Drivable Area:
+                        Alpha: 0.9990000128746033
+                        Color: 0; 148; 205
+                        Value: true
+                        Width: 0.30000001192092896
+                      View Footprint:
+                        Alpha: 1
+                        Color: 230; 230; 50
+                        Offset from BaseLink: 0
+                        Rear Overhang: 1.0299999713897705
+                        Value: false
+                        Vehicle Length: 4.769999980926514
+                        Vehicle Width: 1.8300000429153442
                       View Path:
                         Alpha: 0.30000001192092896
                         Color: 115; 210; 22
                         Constant Color: false
+                        Constant Width: false
                         Value: true
                         Width: 2
+                      View Point:
+                        Alpha: 1
+                        Color: 0; 60; 255
+                        Offset: 0
+                        Radius: 0.10000000149011612
+                        Value: false
+                      View Text Velocity:
+                        Scale: 0.30000001192092896
+                        Value: false
                       View Velocity:
                         Alpha: 0.30000001192092896
                         Color: 0; 0; 0
@@ -1217,12 +1285,27 @@ Visualization Manager:
                         Reliability Policy: Reliable
                         Value: /planning/scenario_planning/lane_driving/trajectory
                       Value: false
+                      View Footprint:
+                        Alpha: 1
+                        Color: 230; 230; 50
+                        Offset from BaseLink: 0
+                        Rear Overhang: 1.0299999713897705
+                        Value: false
+                        Vehicle Length: 4.769999980926514
+                        Vehicle Width: 1.8300000429153442
                       View Path:
                         Alpha: 0.9990000128746033
                         Color: 0; 0; 0
                         Constant Color: false
+                        Constant Width: false
                         Value: true
                         Width: 2
+                      View Point:
+                        Alpha: 1
+                        Color: 0; 60; 255
+                        Offset: 0
+                        Radius: 0.10000000149011612
+                        Value: false
                       View Text Velocity:
                         Scale: 0.30000001192092896
                         Value: false
@@ -1461,12 +1544,27 @@ Visualization Manager:
             Reliability Policy: Reliable
             Value: /control/trajectory_follower/lateral/predicted_trajectory
           Value: true
+          View Footprint:
+            Alpha: 1
+            Color: 230; 230; 50
+            Offset from BaseLink: 0
+            Rear Overhang: 1.0299999713897705
+            Value: false
+            Vehicle Length: 4.769999980926514
+            Vehicle Width: 1.8300000429153442
           View Path:
             Alpha: 1
             Color: 255; 255; 255
             Constant Color: true
+            Constant Width: false
             Value: true
             Width: 0.05000000074505806
+          View Point:
+            Alpha: 1
+            Color: 0; 60; 255
+            Offset: 0
+            Radius: 0.10000000149011612
+            Value: false
           View Text Velocity:
             Scale: 0.30000001192092896
             Value: false
@@ -1506,7 +1604,7 @@ Visualization Manager:
       Class: rviz_default_plugins/Map
       Color Scheme: map
       Draw Behind: true
-      Enabled: false
+      Enabled: true
       Name: OccupancyGrid
       Topic:
         Depth: 5
@@ -1522,7 +1620,7 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /perception/occupancy_grid_map/map_updates
       Use Timestamp: false
-      Value: false
+      Value: true
     - Class: rviz_default_plugins/Image
       Enabled: false
       Max Value: 1
@@ -1549,7 +1647,7 @@ Visualization Manager:
             Alpha: 0.9990000128746033
             Color: 119; 11; 32
           Class: autoware_auto_perception_rviz_plugin/DetectedObjects
-          Display 3d polygon: true
+          Display Acceleration: true
           Display Label: true
           Display PoseWithCovariance: true
           Display Predicted Path Confidence: true
@@ -1568,6 +1666,7 @@ Visualization Manager:
           PEDESTRIAN:
             Alpha: 0.9990000128746033
             Color: 255; 192; 203
+          Polygon Type: 3d
           TRAILER:
             Alpha: 0.9990000128746033
             Color: 30; 144; 255
@@ -1584,6 +1683,7 @@ Visualization Manager:
             Alpha: 0.9990000128746033
             Color: 255; 255; 255
           Value: false
+          Visualization Type: Normal
         - BUS:
             Alpha: 0.9990000128746033
             Color: 30; 144; 255
@@ -1594,7 +1694,7 @@ Visualization Manager:
             Alpha: 0.9990000128746033
             Color: 119; 11; 32
           Class: autoware_auto_perception_rviz_plugin/DetectedObjects
-          Display 3d polygon: true
+          Display Acceleration: true
           Display Label: true
           Display PoseWithCovariance: true
           Display Predicted Path Confidence: true
@@ -1613,6 +1713,7 @@ Visualization Manager:
           PEDESTRIAN:
             Alpha: 0.9990000128746033
             Color: 255; 192; 203
+          Polygon Type: 3d
           TRAILER:
             Alpha: 0.9990000128746033
             Color: 30; 144; 255
@@ -1629,6 +1730,7 @@ Visualization Manager:
             Alpha: 0.9990000128746033
             Color: 255; 255; 255
           Value: false
+          Visualization Type: Normal
         - BUS:
             Alpha: 0.9990000128746033
             Color: 30; 144; 255
@@ -1639,7 +1741,7 @@ Visualization Manager:
             Alpha: 0.9990000128746033
             Color: 119; 11; 32
           Class: autoware_auto_perception_rviz_plugin/PredictedObjects
-          Display 3d polygon: true
+          Display Acceleration: true
           Display Label: false
           Display PoseWithCovariance: false
           Display Predicted Path Confidence: false
@@ -1654,11 +1756,13 @@ Visualization Manager:
             Color: 119; 11; 32
           Name: PredictedObjects
           Namespaces:
+            acceleration: true
             path: true
             shape: true
           PEDESTRIAN:
             Alpha: 0.9990000128746033
             Color: 255; 192; 203
+          Polygon Type: 3d
           TRAILER:
             Alpha: 0.9990000128746033
             Color: 30; 144; 255
@@ -1675,6 +1779,7 @@ Visualization Manager:
             Alpha: 0.9990000128746033
             Color: 255; 255; 255
           Value: true
+          Visualization Type: Normal
       Enabled: true
       Name: BBox(original)
     - Alpha: 0.9990000128746033
@@ -1689,7 +1794,7 @@ Visualization Manager:
       Color: 200; 200; 200
       Color Transformer: FlatColor
       Decay Time: 0
-      Enabled: false
+      Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 15
@@ -1710,13 +1815,20 @@ Visualization Manager:
         Value: /perception/obstacle_segmentation/pointcloud
       Use Fixed Frame: true
       Use rainbow: true
-      Value: false
+      Value: true
     - Class: rviz_default_plugins/Axes
       Enabled: true
-      Length: 7
-      Name: Axes
+      Length: 4
+      Name: Ego
       Radius: 0.5
       Reference Frame: base_link
+      Value: true
+    - Class: rviz_default_plugins/Axes
+      Enabled: true
+      Length: 3
+      Name: TopLiDAR
+      Radius: 0.5
+      Reference Frame: velodyne_top
       Value: true
     - Alpha: 0.5
       Cell Size: 10
@@ -1736,6 +1848,34 @@ Visualization Manager:
       Plane Cell Count: 30
       Reference Frame: base_link
       Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: false
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /sensing/camera/image
+      Value: false
+    - Class: rviz_default_plugins/Image
+      Enabled: false
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /sensing/camera/image
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 4; 1; 35
@@ -1767,8 +1907,11 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /planning/mission_planning/goal
-    - Class: rviz_plugins/PedestrianInitialPoseTool
+    - Acceleration: 0
+      Class: rviz_plugins/PedestrianInitialPoseTool
       Interactive: false
+      Max velocity: 33.29999923706055
+      Min velocity: -33.29999923706055
       Pose Topic: /simulation/dummy_perception_publisher/object_info
       Target Frame: <Fixed Frame>
       Theta std deviation: 0.0872664600610733
@@ -1777,10 +1920,13 @@ Visualization Manager:
       Y std deviation: 0.029999999329447746
       Z position: 1
       Z std deviation: 0.029999999329447746
-    - Class: rviz_plugins/CarInitialPoseTool
+    - Acceleration: 0
+      Class: rviz_plugins/CarInitialPoseTool
       H vehicle height: 2
       Interactive: false
       L vehicle length: 4
+      Max velocity: 33.29999923706055
+      Min velocity: -33.29999923706055
       Pose Topic: /simulation/dummy_perception_publisher/object_info
       Target Frame: <Fixed Frame>
       Theta std deviation: 0.0872664600610733
@@ -1790,10 +1936,13 @@ Visualization Manager:
       Y std deviation: 0.029999999329447746
       Z position: 0
       Z std deviation: 0.029999999329447746
-    - Class: rviz_plugins/BusInitialPoseTool
+    - Acceleration: 0
+      Class: rviz_plugins/BusInitialPoseTool
       H vehicle height: 3.5
       Interactive: false
       L vehicle length: 10.5
+      Max velocity: 33.29999923706055
+      Min velocity: -33.29999923706055
       Pose Topic: /simulation/dummy_perception_publisher/object_info
       Target Frame: <Fixed Frame>
       Theta std deviation: 0.0872664600610733
@@ -1817,21 +1966,26 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -0.9849998950958252
-      Class: rviz_default_plugins/TopDownOrtho
+      Class: rviz_default_plugins/ThirdPersonFollower
+      Distance: 465.35784912109375
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
+      Focal Point:
+        X: 10.74101448059082
+        Y: -9.47385311126709
+        Z: -8.343304943991825e-05
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 16.688913345336914
+      Pitch: 1.5347965955734253
       Target Frame: base_link
-      Value: TopDownOrtho (rviz_default_plugins)
-      X: 27.426122665405273
-      Y: -4.843662261962891
+      Value: ThirdPersonFollower (rviz_default_plugins)
+      Yaw: 3.1386048793792725
     Saved:
       - Class: rviz_default_plugins/ThirdPersonFollower
         Distance: 18
@@ -1890,21 +2044,21 @@ Visualization Manager:
         Yaw: -1.5707963705062866
 Window Geometry:
   AutowareDateTimePanel:
-    collapsed: true
+    collapsed: false
   BagTimeManagerPanel:
-    collapsed: true
+    collapsed: false
   Displays:
     collapsed: false
-  Height: 2598
-  Hide Left Dock: true
+  Height: 2053
+  Hide Left Dock: false
   Hide Right Dock: false
   Image:
     collapsed: false
   InitialPoseButtonPanel:
     collapsed: false
   MultiDataMonitor:
-    collapsed: true
-  QMainWindow State: 000000ff00000000fd0000000400000000000003320000096afc020000001ffb0000001200530065006c0065006300740069006f006e00000001e10000009b000000da00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc00000086000006950000000000fffffffa000000010100000002fb0000000a0049006d0061006700650000000000ffffffff000000ae00fffffffb0000000a0049006d0061006700650000000000ffffffff0000000000000000fc000001ef000001810000000000fffffffa000000000100000001fb0000000c00430061006d0065007200610000000000ffffffff0000000000000000fb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000002bb000000b50000000000000000fb0000000a0049006d00610067006501000001e9000000b40000000000000000fb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000010f00fffffffb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000000000000000fb0000000c00430061006d0065007200610000000239000001370000000000000000fb0000000c00430061006d00650072006100000002bd000000b30000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d00610067006500000001f0000000870000000000000000fb0000000c00430061006d0065007200610000000213000000920000000000000000fb0000000c00430061006d006500720061000000024a000001260000000000000000fb0000000a0049006d0061006700650000000212000000930000000000000000fb0000000a0049006d006100670065000000027e000000f20000000000000000fb0000000a0049006d006100670065000000024b000001250000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d0061006700650000000205000000b80000000000000000fb00000030005200650063006f0067006e006900740069006f006e0052006500730075006c0074004f006e0049006d00610067006500000000480000025c0000005a00fffffffb0000000a0049006d00610067006501000000480000024f0000000000000000fb00000020004d0075006c007400690044006100740061004d006f006e00690074006f00720000000086000005bb000000c200fffffffb0000000c00430061006d006500720061000000024c000000b10000000000000000fb0000000a0049006d0061006700650000000298000000b90000000000000000fb0000002600420061006700540069006d0065004d0061006e006100670065007200500061006e0065006c00000006500000019d0000009500fffffffb0000002a004100750074006f0077006100720065004400610074006500540069006d006500500061006e0065006c00000007fc000001f40000008c00ffffff00000001000002c30000096afc0200000003fb000000100044006900730070006c00610079007301000000860000079b000001de00fffffffc00000830000001c0000001c001000047fa000000010100000002fb0000000a005600690065007700730100000000ffffffff000001b400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007301000004a10000015f0000014800fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b2000000000000000000000002000007800000006bfc0100000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000000000007800000000000000000fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006000000005afc0100000002fb0000000800540069006d0065000000000000000600000006ee00fffffffb0000000800540069006d006501000000000000045000000000000000000000072e0000096a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd000000040000000000000332000007a3fc0200000021fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006b00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc00000086000006950000000000fffffffa000000010100000002fb0000000a0049006d0061006700650000000000ffffffff0000006500fffffffb0000000a0049006d0061006700650000000000ffffffff0000000000000000fc000001ef000001810000000000fffffffa000000000100000001fb0000000c00430061006d0065007200610000000000ffffffff0000000000000000fb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000002bb000000b50000000000000000fb0000000a0049006d00610067006501000001e9000000b40000000000000000fb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000008100fffffffb0000002c0049006e0069007400690061006c0050006f007300650042007500740074006f006e00500061006e0065006c000000068f000000de0000000000000000fb0000000c00430061006d0065007200610000000239000001370000000000000000fb0000000c00430061006d00650072006100000002bd000000b30000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d00610067006500000001f0000000870000000000000000fb0000000c00430061006d0065007200610000000213000000920000000000000000fb0000000c00430061006d006500720061000000024a000001260000000000000000fb0000000a0049006d0061006700650000000212000000930000000000000000fb0000000a0049006d006100670065000000027e000000f20000000000000000fb0000000a0049006d006100670065000000024b000001250000000000000000fb0000000c00430061006d00650072006100000002ac000000c40000000000000000fb0000000a0049006d0061006700650000000205000000b80000000000000000fb00000030005200650063006f0067006e006900740069006f006e0052006500730075006c0074004f006e0049006d00610067006500000000480000025c0000002c00fffffffb0000000a0049006d00610067006501000000480000024f0000000000000000fb00000020004d0075006c007400690044006100740061004d006f006e00690074006f00720000000044000005c80000009c00fffffffb0000000c00430061006d006500720061000000024c000000b10000000000000000fb0000000a0049006d0061006700650000000298000000b90000000000000000fb0000002600420061006700540069006d0065004d0061006e006100670065007200500061006e0065006c0100000044000002320000004700fffffffb0000002a004100750074006f0077006100720065004400610074006500540069006d006500500061006e0065006c010000027d0000056a0000004600fffffffb0000000a0049006d0061006700650000000701000000e60000002c00fffffffb0000000a0049006d0061006700650000000701000000e60000002c00ffffff00000001000001d7000007a3fc0200000003fb000000100044006900730070006c00610079007301000000440000062f000000eb00fffffffc0000067a0000016d000000da01000020fa000000000100000002fb0000000a005600690065007700730100000000ffffffff0000010200fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007301000004a10000015f000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b2000000000000000000000002000007800000006bfc0100000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000000000007800000000000000000fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006000000005afc0100000002fb0000000800540069006d0065000000000000000600000002d200fffffffb0000000800540069006d00650100000000000004500000000000000000000009e9000007a300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   RecognitionResultOnImage:
     collapsed: false
   Selection:
@@ -1915,6 +2069,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 2560
+  Width: 3840
   X: 0
-  Y: 68
+  Y: 0

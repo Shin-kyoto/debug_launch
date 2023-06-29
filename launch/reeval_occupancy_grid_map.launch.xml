@@ -20,7 +20,7 @@
   <arg name="control" default="false" description="launch control" />
   <arg name="scenario_simulation" default="true" description="scenario simulation" />
   <arg name="rviz" default="true"/>
-  <arg name="rviz_config" default="$(find-pkg-share debug_launch)/config/rviz/reeval_planning.rviz" description="rviz config"/>
+  <arg name="rviz_config" default="$(find-pkg-share debug_launch)/config/rviz/reeval_occupancy_grid_map.rviz" description="rviz config"/>
   <arg name="input/pointcloud" default="/sensing/lidar/top/outlier_filtered/pointcloud" description="The topic will be used in the detection module"/>
   <arg name="mode" default="camera_lidar_fusion" description="options: `camera_lidar_radar_fusion`, `camera_lidar_fusion`, `lidar_radar_fusion`, `lidar` or `radar`"/>
   <arg name="vehicle_param_file" default="$(find-pkg-share vehicle_info_util)/config/vehicle_info.param.yaml" description="path to the file of vehicle info yaml"/>
@@ -43,8 +43,8 @@
 	<arg name="sensing" value="$(var sensing)"/>
 	<arg name="localization" value="$(var localization)"/>
 	<arg name="perception" value="$(var perception)"/>
-	<arg name="planning" value="$(var planning)"/>
-	<arg name="control" value="$(var control)"/>
+	<arg name="planning" value="false"/>
+	<arg name="control" value="false"/>
 	<arg name="scenario_simulation" value="$(var scenario_simulation)"/>
 	<arg name="rviz" value="false"/>
   </include>
