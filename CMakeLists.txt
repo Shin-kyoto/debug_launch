@@ -16,6 +16,7 @@ install(
   scripts/play_reeval_planning.sh
   scripts/play_reeval_obstacle_pointcloud_based_validator.sh
   scripts/play_reeval_perception.sh
+  scripts/play_reeval_behavior_velocity.sh
   DESTINATION lib/${PROJECT_NAME}
 )
 

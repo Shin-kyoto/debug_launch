@@ -7,7 +7,7 @@ BAG_NAME=$1
 COMMAND_OPTION='--remap '
 
 # mission_planning is necessary for behavior_planner
-PLANNING_TOPIC=$(ros2 bag info $BAG_NAME | awk '{print $2}' | grep planning | grep -v mission_planning)
+PLANNING_TOPIC=$(ros2 bag info $BAG_NAME | awk '{print $2}' | grep planning | grep -v path_with_lane_id)
 for i in ${PLANNING_TOPIC[@]}; do
     TARGET_PLANNING_TOPIC=$i
     RENAMED_TARGET_PLANNING_TOPIC=$(echo $TARGET_PLANNING_TOPIC | sed 's/\/planning/\/tmp\/planning/g')

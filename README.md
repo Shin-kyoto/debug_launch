@@ -46,3 +46,15 @@ map_path:=$HOME/workspace/maps/experiment
 ```
 ros2 run debug_launch play_reeval_perception.sh <path to bag>
 ```
+
+# For reevaluating behavior_velocity from recorded `path_with_lane_id`
+
+```
+ros2 launch debug_launch reeval_behavior_velocity.launch.xml \
+vehicle_model:=lexus sensor_model:=aip_xx1 \
+map_path:=$HOME/workspace/maps/experiment
+```
+
+```
+ros2 run debug_launch play_reeval_behavior_velocity.sh <path to bag>
+```
