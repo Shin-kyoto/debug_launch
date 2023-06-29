@@ -13,5 +13,11 @@ for i in ${PLANNING_TOPIC[@]}; do
     RENAMED_TARGET_PLANNING_TOPIC=$(echo $TARGET_PLANNING_TOPIC | sed 's/\/planning/\/tmp\/planning/g')
     COMMAND_OPTION=$COMMAND_OPTION' '$TARGET_PLANNING_TOPIC':='$RENAMED_TARGET_PLANNING_TOPIC
 done
+API_TOPIC=$(ros2 bag info $BAG_NAME | awk '{print $2}' | grep api)
+for i in ${API_TOPIC[@]}; do
+    TARGET_API_TOPIC=$i
+    RENAMED_TARGET_API_TOPIC=$(echo $TARGET_API_TOPIC | sed 's/\/api/\/tmp\/api/g')
+    COMMAND_OPTION=$COMMAND_OPTION' '$TARGET_API_TOPIC':='$RENAMED_TARGET_API_TOPIC
+done
 
 ros2 bag play $BAG_NAME $COMMAND_OPTION --clock -r 0.6 -s sqlite3
