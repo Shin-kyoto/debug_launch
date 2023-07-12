@@ -1,0 +1,63 @@
+version: 2.0
+
+stylesheets:
+  - { path: package://multi_data_monitor/css/plugins/simple.css, target: Simple }
+  - { path: package://multi_data_monitor/css/plugins/titled.css, target: Titled }
+
+widgets:
+  - class: Matrix
+    cols: 4
+    items:
+      # vehicle
+      - class: Titled
+        title: vehicle/accel
+        input: vehicle_actuation_accel
+        rules: { class: SetIf, type: real, ge: 0.0, attrs: { front-color: blue } }
+      - class: Titled
+        title: vehicle/brake
+        input: vehicle_actuation_brake
+        rules: { class: SetIf, type: real, ge: 0.0, attrs: { front-color: red } }
+      - class: Titled
+        title: vehicle/steer
+        input: vehicle_actuation_steer
+      - class: Titled
+        title: vehicle/lon_vel_report
+        input: vehicle_lon_vel_report
+      # control
+      - class: Titled
+        title: control/actuator/accel
+        input: control_actuation_accel
+      - class: Titled
+        title: control/actuator/brake
+        input: control_actuation_brake
+      - class: Titled
+        title: control/actuator/steer
+        input: control_actuation_steer
+      - class: Titled
+        title: control/lon_vel
+        input: control_lon_vel
+
+streams:
+  # vehicle
+  - { class: subscription, label: vehicle_actuation_accel_raw, topic: /vehicle/status/actuation_status, field: status.accel_status }
+  - { class: subscription, label: vehicle_actuation_brake_raw, topic: /vehicle/status/actuation_status, field: status.brake_status }
+  - { class: subscription, label: vehicle_actuation_steer_raw, topic: /vehicle/status/actuation_status, field: status.steer_status }
+  - { class: subscription, label: vehicle_lon_vel_report_raw, topic: /vehicle/status/velocity_status, field: longitudinal_velocity }
+  ## fixed precision
+  - { class: apply, label: vehicle_actuation_accel, input: vehicle_actuation_accel_raw, rules: precision }
+  - { class: apply, label: vehicle_actuation_brake, input: vehicle_actuation_brake_raw, rules: precision }
+  - { class: apply, label: vehicle_actuation_steer, input: vehicle_actuation_steer_raw, rules: precision }
+  - { class: apply, label: vehicle_lon_vel_report, input: vehicle_lon_vel_report_raw, rules: precision }
+  # control
+  - { class: subscription, label: control_actuation_accel_raw, topic: /control/command/actuation_cmd, field: actuation.accel_cmd }
+  - { class: subscription, label: control_actuation_brake_raw, topic: /control/command/actuation_cmd, field: actuation.brake_cmd }
+  - { class: subscription, label: control_actuation_steer_raw, topic: /control/command/actuation_cmd, field: actuation.steer_cmd }
+  - { class: subscription, label: control_lon_vel_raw, topic: /control/command/control_cmd, field: longitudinal.speed }
+  ## fixed precision
+  - { class: apply, label: control_actuation_accel, input: control_actuation_accel_raw, rules: precision }
+  - { class: apply, label: control_actuation_brake, input: control_actuation_brake_raw, rules: precision }
+  - { class: apply, label: control_actuation_steer, input: control_actuation_steer_raw, rules: precision }
+  - { class: apply, label: control_lon_vel, input: control_lon_vel_raw, rules: precision }
+
+filters:
+  - { class: Precision, label: precision, digits: 4 }
