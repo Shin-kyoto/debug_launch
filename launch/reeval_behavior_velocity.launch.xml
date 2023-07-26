@@ -143,7 +143,7 @@
   <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(var rviz_config)"/>
   
   <node pkg="image_transport_decompressor" exec="image_transport_decompressor_node" name="image_decompressor_node">
-	<remap from="~/input/compressed_image" to="/sensing/camera/traffic_light/image_raw/compressed"/>
+	<remap from="~/input/compressed_image" to="/sensing/camera/camera6/image_raw/compressed"/>
 	<remap from="~/output/raw_image" to="/sensing/camera/image"/>
   </node>
 
