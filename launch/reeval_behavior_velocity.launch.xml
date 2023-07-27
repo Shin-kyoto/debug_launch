@@ -23,21 +23,9 @@
   <arg name="use_pointcloud_container" default="false" description="launch pointcloud container"/>
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
   <arg name="occupancy_grid_map_method" default="pointcloud_based_occupancy_grid_map" description="options: pointcloud_based_occupancy_grid_map, laserscan_based_occupancy_grid_map"/>
-  <arg name="use_foa" default="false"/>
   <let
     name="rtc_auto_mode_manager_param_path"
     value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/rtc_auto_mode_manager/rtc_auto_mode_manager.param.yaml"
-    unless="$(var use_foa)"
-  />
-  <let
-    name="rtc_auto_mode_manager_param_path"
-    value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/rtc_auto_mode_manager/rtc_auto_mode_manager_foa.param.yaml"
-    if="$(var use_foa)"
-  />
-  <let
-    name="rtc_auto_mode_manager_param_path"
-    value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/rtc_auto_mode_manager/rtc_auto_mode_manager_sim.param.yaml"
-    if="$(var scenario_simulation)"
   />
 
   <include file="$(find-pkg-share autoware_launch)/launch/logging_simulator.launch.xml">
@@ -69,6 +57,7 @@
     <arg name="behavior_velocity_smoother_type_param_path" value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/motion_velocity_smoother/Analytical.param.yaml"/>
     <arg name="blind_spot_param_path" value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/blind_spot.param.yaml"/>
     <arg name="crosswalk_param_path" value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/crosswalk.param.yaml"/>
+	<arg name="walkway_param_path" value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/walkway.param.yaml"/>
     <arg
       name="detection_area_param_path"
       value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/detection_area.param.yaml"
@@ -143,7 +132,7 @@
   <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(var rviz_config)"/>
   
   <node pkg="image_transport_decompressor" exec="image_transport_decompressor_node" name="image_decompressor_node">
-	<remap from="~/input/compressed_image" to="/sensing/camera/camera6/image_raw/compressed"/>
+	<remap from="~/input/compressed_image" to="/sensing/camera/camera0/image_rect_color/compressed"/>
 	<remap from="~/output/raw_image" to="/sensing/camera/image"/>
   </node>
 

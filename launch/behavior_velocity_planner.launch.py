@@ -64,6 +64,10 @@ def launch_setup(context, *args, **kwargs):
     ) as f:
         crosswalk_param = yaml.safe_load(f)["/**"]["ros__parameters"]
     with open(
+        LaunchConfiguration("walkway_param_path").perform(context), "r"
+    ) as f:
+        walkway_param = yaml.safe_load(f)["/**"]["ros__parameters"]
+    with open(
         LaunchConfiguration("detection_area_param_path").perform(context), "r"
     ) as f:
         detection_area_param = yaml.safe_load(f)["/**"]["ros__parameters"]
@@ -181,6 +185,7 @@ def launch_setup(context, *args, **kwargs):
             behavior_velocity_planner_param,
             blind_spot_param,
             crosswalk_param,
+            walkway_param,
             detection_area_param,
             intersection_param,
             stop_line_param,
