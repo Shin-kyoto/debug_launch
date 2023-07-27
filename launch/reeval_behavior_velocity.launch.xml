@@ -25,7 +25,7 @@
   <arg name="occupancy_grid_map_method" default="pointcloud_based_occupancy_grid_map" description="options: pointcloud_based_occupancy_grid_map, laserscan_based_occupancy_grid_map"/>
   <let
     name="rtc_auto_mode_manager_param_path"
-    value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/rtc_auto_mode_manager/rtc_auto_mode_manager.param.yaml"
+    value="$(find-pkg-share debug_launch)/config/rtc_auto_mode_manager.param.yaml"
   />
 
   <include file="$(find-pkg-share autoware_launch)/launch/logging_simulator.launch.xml">
